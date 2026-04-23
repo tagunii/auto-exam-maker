@@ -31,7 +31,7 @@ if uploaded_file is not None:
                 try:
                     # Gemini API 연결
                     genai.configure(api_key=api_key)
-                    model = genai.GenerativeModel('gemini-1.5-flash')
+                    model = genai.GenerativeModel('gemini-1.5-flash-latest')
 
                     # 전문가용 프롬프트
                     prompt = """
