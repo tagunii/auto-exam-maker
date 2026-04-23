@@ -3,7 +3,7 @@ import google.generativeai as genai
 from PIL import Image
 
 # 1. 본인의 API 키를 여기에 입력 (따옴표 유지)
-MY_API_KEY = "AIzaSyAklVNMIukXpHHmhh95xdBta8oPdOfYtrc"
+MY_API_KEY = "AIzaSyDRUeeL3YOdJquKAQXTsOCLdgKoRBQ_8H4"
 
 # 2. 앱 기본 설정
 st.set_page_config(page_title="문제집 텍스트 복원기", page_icon="🎓")
@@ -37,7 +37,7 @@ if uploaded_file is not None:
                     genai.configure(api_key=MY_API_KEY)
                     
                     # 2026년 표준 모델 호출
-                    model = genai.GenerativeModel(model_name='gemini-1.5-flash')
+                    model = genai.GenerativeModel('gemini-pro')
 
                     prompt = """
                     이 이미지에서 사람이 직접 쓴 모든 글씨와 채점 흔적을 제거해줘.
