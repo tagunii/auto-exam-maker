@@ -32,21 +32,20 @@ if uploaded_file is not None:
             st.error("잠깐! 질문자님, 코드 안에 API 키를 실제 키로 바꿔주셔야 해요!")
         else:
             with st.spinner("AI가 손글씨를 지우고 문제를 복원하는 중입니다..."):
-                try:
-                    # 최신 API 설정
-                    genai.configure(api_key=MY_API_KEY)
+try:
+                    # 1. API 설정 (버전을 v1으로 강제 고정하여 v1beta 에러를 원천 차단)
+                    genai.configure(api_key=MY_API_KEY, transport='rest')
                     
-                    # 2026년 표준 모델 호출
-                    model = genai.GenerativeModel('gemini-pro')
+                    # 2. 모델 선언 (경로 없이 이름만 사용)
+                    model = genai.GenerativeModel('gemini-1.5-flash')
 
                     prompt = """
-                    이 이미지에서 사람이 직접 쓴 모든 글씨와 채점 흔적을 제거해줘.
-                    원래 인쇄되어 있던 '문제 번호', '지문', '문제 내용', '보기'만 추출해서 
-                    줄바꿈을 깔끔하게 해서 텍스트로 보여줘.
+                    이미지 속 손글씨와 채점 흔적을 모두 지우고, 
+                    원래 인쇄되어 있던 문제와 보기만 텍스트로 추출해줘.
                     """
                     
-                    # 이미지 분석 및 응답 생성
-                    response = model.generate_content([prompt, image])
+                    # 3. 호출 시에도 안정적인 방식 사용
+                    response = model.generate_content(image)
                     
                     if response.text:
                         st.success("✅ 추출 성공!")
