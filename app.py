@@ -2,7 +2,7 @@ import streamlit as st
 import google.generativeai as genai
 from PIL import Image
 
-# 1. API 키 (꼭 새로 만든 키인지 확인해주세요!)
+# 1. 사용 중인 API 키
 MY_API_KEY = "AIzaSyDXfEJYt0w0xVjRBNuhlQHGIkLuYjM8uLk"
 
 st.set_page_config(page_title="문제집 텍스트 복원기")
@@ -15,22 +15,20 @@ if uploaded_file is not None:
     st.image(image, caption="업로드됨", width=500)
 
     if st.button("✨ 텍스트 추출 시작"):
-        with st.spinner("분석 중..."):
+        with st.spinner("최신 Gemini 2.5 엔진 분석 중..."):
             try:
                 genai.configure(api_key=MY_API_KEY)
                 
-                # [해결책] 1.5-flash 대신, 가장 호환성이 높은 모델명으로 변경
-                # 만약 이것도 안 되면 'gemini-1.0-pro-vision-latest'로 시도하세요.
-                model = genai.GenerativeModel('gemini-pro-vision')
+                # 리스트 0번에 있던 최신 모델명을 정확히 입력합니다.
+                model = genai.GenerativeModel('gemini-2.5-flash')
 
-                response = model.generate_content(["이미지에서 손글씨를 제외한 문제만 추출해줘.", image])
+                prompt = "이미지에서 손글씨와 채점 흔적을 제외하고 인쇄된 문제 텍스트만 추출해줘."
+                
+                # 최신 엔진은 멀티모달 성능이 압도적이라 아주 잘 읽을 겁니다.
+                response = model.generate_content([prompt, image])
                 
                 if response.text:
-                    st.success("✅ 완료!")
+                    st.success("✅ 추출 성공!")
                     st.text_area("결과:", value=response.text, height=500)
             except Exception as e:
-                # 에러가 나면 어떤 모델을 써야 하는지 목록을 그냥 화면에 띄워버립시다.
-                st.error(f"오류 내용: {e}")
-                st.write("사용 가능한 모델 목록을 확인하는 중...")
-                available_models = [m.name for m in genai.list_models() if 'generateContent' in m.supported_generation_methods]
-                st.write(available_models)
+                st.error(f"오류 발생: {e}")
