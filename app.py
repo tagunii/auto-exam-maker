@@ -2,8 +2,8 @@ import streamlit as st
 import google.generativeai as genai
 from PIL import Image
 
-# 1. 사용 중인 API 키
-MY_API_KEY = "AIzaSyDXfEJYt0w0xVjRBNuhlQHGIkLuYjM8uLk"
+# [수정] 키를 직접 적지 않고 스트림릿 설정에서 가져옵니다.
+MY_API_KEY = st.secrets["GEMINI_API_KEY"]
 
 st.set_page_config(page_title="문제집 텍스트 복원기")
 st.title("🎓 문제집 텍스트 복원기")
