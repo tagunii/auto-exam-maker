@@ -16,7 +16,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 st.title("🎓 문제집 텍스트 복원기")
-st.write("공유 금지 혼자쓰시길")
+st.write("링크 공유 금지")
 
 # 3. 사진 업로드
 uploaded_file = st.file_uploader("문제집 사진 선택", type=["jpg", "jpeg", "png"])
