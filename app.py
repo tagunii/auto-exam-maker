@@ -3,7 +3,7 @@ import google.generativeai as genai
 from PIL import Image
 
 # 1. 본인의 API 키를 여기에 입력 (따옴표 유지)
-MY_API_KEY = "AIzaSyCsSeQbMWsp8a-WMKAZGNT62he5sILf3bE"
+MY_API_KEY = "AIzaSyDXfEJYt0w0xVjRBNuhlQHGIkLuYjM8uLk"
 
 # 2. 앱 기본 설정
 st.set_page_config(page_title="문제집 텍스트 복원기", page_icon="🎓")
